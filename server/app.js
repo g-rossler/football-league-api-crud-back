@@ -32,6 +32,17 @@ app.get('/team/:id', (req, res) => {
   });
 });
 
+app.get('/team/:id/edit', (req, res) => {
+  const teamId = Number(req.params.id);
+  const fileTeams = fs.readFileSync('./server/db/teams.db.json');
+  const dataParse = JSON.parse(fileTeams);
+  const selectTeam = dataParse.find((team) => team.id === teamId);
+
+  res.send({
+    data: selectTeam,
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
