@@ -7,21 +7,31 @@ import { fileURLToPath } from 'url';
 
 const upload = multer({ dest: './server/uploads/' });
 const app = express();
-const port = 3333;
+const PORT = 3333;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(cors());
 app.use(express.static(`${__dirname}/uploads`));
 
 app.get('/', (req, res) => {
-  const equipos = fs.readFileSync('./server/db/teams.db.json');
-  const dataParse = JSON.parse(equipos);
+  const fileTeams = fs.readFileSync('./server/db/teams.db.json');
+  const dataParse = JSON.parse(fileTeams);
 
   res.send({
-    res: dataParse,
+    data: dataParse,
   });
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.get('/team/:id', (req, res) => {
+  const teamId = Number(req.params.id);
+  const fileTeams = fs.readFileSync('./server/db/teams.db.json');
+  const dataParse = JSON.parse(fileTeams);
+  const selectTeam = dataParse.find((team) => team.id === teamId);
+  res.send({
+    data: selectTeam,
+  });
+});
+
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
 });
