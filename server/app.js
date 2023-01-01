@@ -1,11 +1,11 @@
-import express from 'express';
-import cors from 'cors';
-import * as fs from 'fs';
-import multer from 'multer';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import express from "express";
+import cors from "cors";
+import * as fs from "fs";
+import multer from "multer";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
 
-const upload = multer({ dest: './server/uploads/' });
+const upload = multer({ dest: "./server/uploads/" });
 const app = express();
 const PORT = 3333;
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -13,8 +13,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(cors());
 app.use(express.static(`${__dirname}/uploads`));
 
-app.get('/', (req, res) => {
-  const fileTeams = fs.readFileSync('./server/db/teams.db.json');
+app.get("/", (req, res) => {
+  const fileTeams = fs.readFileSync("./server/db/teams.db.json");
   const dataParse = JSON.parse(fileTeams);
 
   res.send({
@@ -22,9 +22,9 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/team/:id', (req, res) => {
+app.get("/team/:id", (req, res) => {
   const teamId = Number(req.params.id);
-  const fileTeams = fs.readFileSync('./server/db/teams.db.json');
+  const fileTeams = fs.readFileSync("./server/db/teams.db.json");
   const dataParse = JSON.parse(fileTeams);
   const selectTeam = dataParse.find((team) => team.id === teamId);
   res.send({
@@ -32,9 +32,9 @@ app.get('/team/:id', (req, res) => {
   });
 });
 
-app.get('/team/:id/edit', (req, res) => {
+app.get("/team/:id/edit", (req, res) => {
   const teamId = Number(req.params.id);
-  const fileTeams = fs.readFileSync('./server/db/teams.db.json');
+  const fileTeams = fs.readFileSync("./server/db/teams.db.json");
   const dataParse = JSON.parse(fileTeams);
   const selectTeam = dataParse.find((team) => team.id === teamId);
 
