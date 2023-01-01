@@ -11,6 +11,8 @@
         "sourceType": "module"
     },
     "rules": {
-        "no-underscore-dangle": ["error", { "allow": ["__dirname"] }]
+        "no-underscore-dangle": ["error", { "allow": ["__dirname"] }],
+        "linebreak-style": ["error", "windows"],
+        "quotes": [2, "double"]
     }
 }
